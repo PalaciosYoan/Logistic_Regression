@@ -61,15 +61,21 @@ for i in [10**(-7), 10**(-6), 10**(-5), 10**(-4), 10**(-3), 10**(-2), 0.1, 1, 10
 maxVal = max(plotval)
 maxValidx = plotval.index(maxVal)
 maxCidx = plotC[maxValidx]
-print(maxCidx)
-print(maxVal)
+
+#printing score against Test data
+best_model = LogisticRegression(penalty='l2', solver='liblinear', C=plotC[maxValidx], tol=10**(-7), max_iter=1000)
+best_model.fit(x_train, y_train.ravel())
+score = best_model.score(data_fea[test_idx, :], data_gnd[test_idx, :])
+print(f"Score against the test data: {score}")
 
 # Plot the Score of both validation and training
 fig = plt.figure()
 plt.semilogx(plotC, plotval, color="blue", label="Val_Score", marker="o")
 plt.semilogx(plotC, plottrain, color="red", label="Train_Score", marker="o")
-plt.legend(loc="lower right")
 plt.text(maxCidx, maxVal, ' {} , {}'.format(maxCidx, maxVal))
+plt.semilogx(maxCidx, score, marker="o", markersize=5, markeredgecolor="green", markerfacecolor="green", label='Test_Score')
+plt.legend(loc="lower right")
+plt.text(maxCidx, score, ' {} , {}'.format(maxCidx, score))
 plt.xlabel("C Values Increasing by Powers of 10")
 plt.ylabel("Score Values")
 
