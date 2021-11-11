@@ -54,7 +54,7 @@ y_train = data_gnd[train_idx, :]
 plotx = []
 ploty1 = []
 ploty = []
-for i in [10**(-5), 10**(-4), 10**(-3), 10**(-2), 0.1, 1, 10, 100, 1000]:  # spacing powers of 10,
+for i in [10**(-7), 10**(-6), 10**(-5), 10**(-4), 10**(-3), 10**(-2), 0.1, 1, 10, 100, 1000, 10000]:  # spacing powers of 10,
     logisticRegr = LogisticRegression(
         penalty='l2', solver='liblinear', C=i, tol=10**(-7), max_iter=1000)
     logisticRegr.fit(x_train, y_train.ravel())
@@ -94,9 +94,9 @@ maxVal = ploty[maxValidx]
 fig = plt.figure()
 plt.semilogx(plotx, ploty, color="blue", label="Val_Score", marker=".")
 plt.semilogx(plotx, ploty1, color="red", label="Train_Score", marker=".")
-plt.scatter(x, maxVal, color="black", zorder=1, label="Max Val_Score")
+#plt.scatter(x, maxVal, color="black", zorder=1, label="Max Val_Score")
 plt.legend(loc="lower right")
-plt.text(x, maxVal, '  {} , {}'.format(x, maxVal))
+plt.text(x, maxVal, ' {} , {}'.format(x, maxVal))
 # fig, ax1 = plt.subplots()
 # ax1.plot(x, maxVal, "go", label="marker only")
 
